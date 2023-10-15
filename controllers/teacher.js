@@ -170,16 +170,16 @@ exports.studentAttendence = async (req, res) => {
 //my profile
 exports.teacherProfile = async (req, res) => {
   try {
-    const user = await Teacher.findById(req.teacher.id)
+    const teacher = await Teacher.findById(req.teacher.id);
 
     res.status(200).json({
       success: true,
-      user
-    })
+      teacher,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
