@@ -173,7 +173,7 @@ exports.studentAttendence = async (req, res) => {
 //my profile
 exports.teacherProfile = async (req, res) => {
   try {
-    const teacher = await Teacher.findById(req.teacher.id);
+    const teacher = await Teacher.findById(req.teacher.id).populate("students");
 
     res.status(200).json({
       success: true,
