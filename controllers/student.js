@@ -68,14 +68,38 @@ exports.loginStudent = async (req, res) => {
 
     const token = await student.generateToken();
 
-    res.status(200).cookie("token", token, {
-      expires: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
-    })
-    .json({
+    res
+      .status(200)
+      .cookie("token", token, {
+        expires: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
+      })
+      .json({
+        success: true,
+        token,
+        student,
+      });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+//get all students
+exports.getAllStudents = async (req, res) => {
+  try {
+    const student = await Student.find();
+    if (!student) {
+      res.status(404).json({
+        success: false,
+        message: "No students found",
+      });
+    }
+    res.status(200).json({
       success: true,
-      token,
-      student
-    })
+      student,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,

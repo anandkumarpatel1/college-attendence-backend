@@ -178,6 +178,7 @@ exports.teacherProfile = async (req, res) => {
     res.status(200).json({
       success: true,
       teacher,
+      
     });
   } catch (error) {
     res.status(500).json({
