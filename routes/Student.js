@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.route("/teacher/createstudent").post(isAuthenticated, registerStudent);
 router.route('/student/login').post(loginStudent)
-router.route('/students').get(getAllStudents)
+router.route('/students').get(isAuthenticated, getAllStudents)
 
 module.exports = router;
