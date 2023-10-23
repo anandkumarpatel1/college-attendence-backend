@@ -69,7 +69,7 @@ exports.loginTeacher = async (req, res) => {
       .cookie("token", token, {
         expires: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
         httpOnly: true,
-        sameSite: 'none',
+        sameSite: "none",
         secure: true,
       })
       .json({
@@ -107,6 +107,7 @@ exports.logout = async (req, res) => {
 exports.enrollNewStudent = async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
+    const teacher = await Teacher.findById(req.teacher._id);
 
     if (!student) {
       return res.status(500).json({
@@ -116,8 +117,10 @@ exports.enrollNewStudent = async (req, res) => {
     }
 
     student.teacher.push(req.teacher._id);
+    teacher.students.push(req.params.id);
 
     await student.save();
+    await teacher.save();
 
     res.status(200).json({
       success: true,
@@ -178,7 +181,6 @@ exports.teacherProfile = async (req, res) => {
     res.status(200).json({
       success: true,
       teacher,
-      
     });
   } catch (error) {
     res.status(500).json({
