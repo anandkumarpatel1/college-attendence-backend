@@ -134,8 +134,8 @@ exports.enrollNewStudent = async (req, res) => {
   }
 };
 
-//adding attendence
-exports.studentAttendence = async (req, res) => {
+//adding present attendence
+exports.addPresentAttendence = async (req, res) => {
   try {
     const teacher = await Teacher.findById(req.teacher._id);
     const student = await Student.findById(req.params.id);
@@ -147,17 +147,50 @@ exports.studentAttendence = async (req, res) => {
       });
     }
 
-    const { data } = req.body;
+    const attendence = {
+      date: Date.now(),
+      subject: teacher.subject,
+      teacher: teacher.name,
+      id: teacher._id,
+    };
 
-    if (data) {
-      const attendence = {
-        date: Date.now(),
-        subject: teacher.subject,
-        teacher: teacher.name,
-      };
+    student.present.push(attendence);
 
-      student.present.push(attendence);
+    await student.save();
+
+    res.status(201).json({
+      success: true,
+      student,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+//adding absent attendence
+exports.addAbsentAttendence = async (req, res) => {
+  try {
+    const teacher = await Teacher.findById(req.teacher._id);
+    const student = await Student.findById(req.params.id);
+
+    if (!student) {
+      return res.status(400).json({
+        success: false,
+        message: "Student not found",
+      });
     }
+
+    const attendence = {
+      date: Date.now(),
+      subject: teacher.subject,
+      teacher: teacher.name,
+      id: teacher._id,
+    };
+
+    student.absent.push(attendence);
 
     await student.save();
 
