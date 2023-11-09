@@ -94,6 +94,7 @@ exports.logout = async (req, res) => {
         expires: new Date(Date.now()),
         httpOnly: true,
         sameSite: "none",
+        secure: true,
       })
       .json({
         success: true,
