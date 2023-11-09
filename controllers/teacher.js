@@ -67,7 +67,7 @@ exports.loginTeacher = async (req, res) => {
     res
       .status(200)
       .cookie("token", token, {
-        expires: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + 20 * 60 * 1000),
         httpOnly: true,
         sameSite: "none",
         secure: true,
@@ -90,8 +90,8 @@ exports.logout = async (req, res) => {
   try {
     res
       .status(200)
-      .cookie("token", 'helofddfj jfjdfjd dkf ddfdjk ', {
-        expires: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
+      .cookie("token", null, {
+        expires: new Date(Date.now()),
         httpOnly: true,
         sameSite: "none",
         secure: true,
