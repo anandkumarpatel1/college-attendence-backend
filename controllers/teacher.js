@@ -90,8 +90,8 @@ exports.logout = async (req, res) => {
   try {
     res
       .status(200)
-      .cookie("token", null, {
-        expires: new Date(Date.now()),
+      .cookie("token", 'helofddfj jfjdfjd dkf ddfdjk ', {
+        expires: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
         httpOnly: true,
         sameSite: "none",
         secure: true,
