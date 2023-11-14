@@ -93,7 +93,7 @@ exports.logout = async (req, res) => {
       .cookie("token", null, {
         expires: new Date(Date.now()),
         httpOnly: true,
-        sameSite: "none",
+        sameSite: "None",
         secure: true,
       })
       .json({
