@@ -8,7 +8,7 @@ const router = express.Router();
 router.route("/teacher/register").post(registerTeacher);
 router.route("/teacher/login").post(loginTeacher)
 router.route("/logout").get(isAuthenticated, logout)
-router.route("/student/enroll/:id").post(isAuthenticated, enrollNewStudent)
+router.route("/student/enroll/:id").get(isAuthenticated, enrollNewStudent)
 router.route("/attendence/present/student/:id").post(isAuthenticated, addPresentAttendence)
 router.route("/attendence/absent/student/:id").post(isAuthenticated, addAbsentAttendence)
 router.route("/teacher").get(isAuthenticated, teacherProfile)
