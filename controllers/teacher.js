@@ -74,6 +74,7 @@ exports.loginTeacher = async (req, res) => {
       })
       .json({
         success: true,
+        message: 'Login Success',
         teacher,
         token,
       });
