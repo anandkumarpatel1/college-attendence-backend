@@ -11,9 +11,9 @@ app.use(express.json());
 app.use(
   "*",
   cors({
-    origin: true,
+    origin: '*',
     credentials: true,
-    allowedHeaders: "X-Requested-With, Content-Type, Authorization",
+    headers: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
     methods: "GET, POST, PATCH, PUT, POST, DELETE, OPTION",
   })
 );
