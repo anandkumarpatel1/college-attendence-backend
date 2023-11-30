@@ -120,6 +120,13 @@ exports.enrollNewStudent = async (req, res) => {
       });
     }
 
+    if(student.teacher.includes(teacher._id)){
+      return res.status(500).json({
+        success: false,
+        message: 'Student is already enrolled'
+      })
+    }
+    
     student.teacher.push(req.teacher._id);
     teacher.students.push(req.params.id);
 
