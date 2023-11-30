@@ -1,27 +1,31 @@
 const express = require("express");
 const app = express();
-const cookieParser = require('cookie-parser')
-const cors = require('cors')
-
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: "config/config.env" });
 }
 
 app.use(express.json());
-app.use("*",cors({
-  origin: true,
-  credentials: true,
-}))
+app.use(
+  "*",
+  cors({
+    origin: true,
+    credentials: true,
+    allowedHeaders: "X-Requested-With, Content-Type, Authorization",
+    methods: "GET, POST, PATCH, PUT, POST, DELETE, OPTION",
+  })
+);
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
+app.use(cookieParser());
 
 //imported routes
-const teacher = require('./routes/Teacher')
-const student = require('./routes/Student')
+const teacher = require("./routes/Teacher");
+const student = require("./routes/Student");
 
 //using route
-app.use('/api/v1', teacher)
-app.use('/api/v1', student)
+app.use("/api/v1", teacher);
+app.use("/api/v1", student);
 
 module.exports = app;
